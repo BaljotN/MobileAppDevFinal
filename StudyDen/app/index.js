@@ -17,6 +17,9 @@ import {
   Montserrat_900Black,
 } from "@expo-google-fonts/montserrat";
 import { StyleSheet } from "react-native";
+import CalendarPage from "./src/screens/CalendarPage";
+import FlashCardPage from "./src/screens/FlashCardPage";
+import TimerPage from "./src/screens/TimerPage";
 
 const Stack = createStackNavigator();
 
@@ -39,16 +42,11 @@ function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ title: "Homepage" }}
-        />
-        <Stack.Screen
-          name="AboutScreen"
-          component={AboutScreen}
-          options={{ title: "HomePage" }}
-        />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="AboutScreen" component={AboutScreen} />
+        <Stack.Screen name="CalendarScreen" component={CalendarPage} />
+        <Stack.Screen name="FlashCardScreen" component={FlashCardPage} />
+        <Stack.Screen name="TimerScreen" component={TimerPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
