@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, Button, TextInput } from "react-native";
 import MainLayout from "../layouts/MainLayout";
+import Entypo from "@expo/vector-icons/Entypo";
 
 function TimerPage({ navigation }) {
   const [isRunning, setIsRunning] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(10 * 60); 
-  const [studyDuration, setStudyDuration] = useState(10); 
+  const [timeLeft, setTimeLeft] = useState(10 * 60);
+  const [studyDuration, setStudyDuration] = useState(10);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    return `${minutes.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   useEffect(() => {
@@ -38,11 +41,17 @@ function TimerPage({ navigation }) {
 
   return (
     <MainLayout>
-      <View style={styles.container}>
-        <Text style={styles.header}>Study Timer</Text>
+      <View style={[styles.container]}>
+        <View style={styles.timerHeading}>
+          <Entypo name="stopwatch" size={34} color="black" />
+          <Text style={styles.header}>Study Timer</Text>
+        </View>
         <Text style={styles.timer}>{formatTime(timeLeft)}</Text>
         <View style={styles.buttonContainer}>
-          <Button title={isRunning ? "Pause" : "Start"} onPress={handleStartPause} />
+          <Button
+            title={isRunning ? "Pause" : "Start"}
+            onPress={handleStartPause}
+          />
           <View style={styles.spacing} />
           <Button title="Reset" onPress={handleReset} />
         </View>
@@ -72,18 +81,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+  },
+  timerHeading: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 20,
   },
   header: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    fontWeight: "600",
+    fontFamily: "Montserrat_600SemiBold",
     textAlign: "center",
   },
   timer: {
     fontSize: 48,
     fontWeight: "bold",
-    marginVertical: 20,
     textAlign: "center",
   },
   buttonContainer: {

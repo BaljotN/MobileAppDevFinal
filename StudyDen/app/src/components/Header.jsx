@@ -19,9 +19,9 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerText: {
-    fontSize: 20,
-    fontWeight: "600",
-    fontFamily: "Montserrat_600SemiBold",
+    fontSize: 25,
+    fontWeight: "800",
+    fontFamily: "Montserrat_800Bold",
   },
   appLogo: {
     width: 40,
