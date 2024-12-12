@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Button, TextInput } from "react-native";
+import { View, StyleSheet, Text, Button, Pressable } from "react-native";
 import MainLayout from "../layouts/MainLayout";
 import Entypo from "@expo/vector-icons/Entypo";
 
@@ -55,19 +55,11 @@ function TimerPage({ navigation }) {
           <View style={styles.spacing} />
           <Button title="Reset" onPress={handleReset} />
         </View>
-        <View style={styles.inputContainer}>
-          <Text>Study Duration (minutes):</Text>
-          <TextInput
-            style={styles.input}
-            keyboardType="numeric"
-            value={studyDuration.toString()}
-            onChangeText={(value) => {
-              const duration = parseInt(value, 10) || 0;
-              setStudyDuration(duration);
-              setTimeLeft(duration * 60);
-            }}
-          />
-        </View>
+        <View style={styles.container}>
+        <Pressable onPress={() => setTimeLeft(10 * 60)} styles={{}}> 10 mins</Pressable>
+        <Pressable onPress={() => setTimeLeft(25 * 60)}> 25 mins</Pressable>
+        <Pressable onPress={() => setTimeLeft(60 * 60)}> 60 mins</Pressable>
+      </View>
         <Button
           title="Go to Home Screen"
           onPress={() => navigation.navigate("AboutScreen")}
