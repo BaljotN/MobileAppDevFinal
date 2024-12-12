@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Button, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  Pressable,
+  TextInput,
+  TouchableWithoutFeedback,
+} from "react-native";
 import MainLayout from "../layouts/MainLayout";
 import Entypo from "@expo/vector-icons/Entypo";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Keyboard } from "react-native";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Feather from "@expo/vector-icons/Feather";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 function TimerPage({ navigation }) {
   const [isRunning, setIsRunning] = useState(false);
@@ -41,35 +54,135 @@ function TimerPage({ navigation }) {
 
   return (
     <MainLayout>
-      <View style={[styles.container]}>
-        <View style={styles.timerHeading}>
-          <Entypo name="stopwatch" size={34} color="black" />
-          <Text style={styles.header}>Study Timer</Text>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={[styles.container]}>
+          <View style={styles.timerHeading}>
+            <Entypo name="stopwatch" size={34} color="black" />
+            <Text style={styles.header}>Study Timer</Text>
+          </View>
+          <Text style={styles.timer}>{formatTime(timeLeft)}</Text>
+          <View style={styles.buttonContainer}>
+            <Pressable style={styles.resetPressable} onPress={handleReset}>
+              <Ionicons
+                style={{ color: "white" }}
+                name="reload"
+                size={24}
+                color="black"
+              />
+              <Text style={styles.startPressableText}>Reset</Text>
+            </Pressable>
+            <Pressable style={styles.startPressable} onPress={handleStartPause}>
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+              >
+                {isRunning ? (
+                  <Feather
+                    style={{ color: "white" }}
+                    name="pause"
+                    size={24}
+                    color="black"
+                  />
+                ) : (
+                  <AntDesign
+                    style={{ color: "white" }}
+                    name="caretright"
+                    size={24}
+                    color="black"
+                  />
+                )}
+                {isRunning ? (
+                  <Text style={styles.startPressableText}>Pause</Text>
+                ) : (
+                  <Text style={styles.startPressableText}>Start</Text>
+                )}
+              </View>
+            </Pressable>
+          </View>
+          <View style={styles.timerButtonsView}>
+            <Pressable
+              style={styles.timerButton}
+              onPress={() => setTimeLeft(10 * 60)}
+              styles={{}}
+            >
+              <Text style={styles.timerButtonText}>10 mins</Text>
+            </Pressable>
+            <Pressable
+              style={styles.timerButton}
+              onPress={() => setTimeLeft(20 * 60)}
+            >
+              <Text style={styles.timerButtonText}>20 mins</Text>
+            </Pressable>
+            <Pressable
+              style={styles.timerButton}
+              onPress={() => setTimeLeft(30 * 60)}
+            >
+              <Text style={styles.timerButtonText}>30 mins</Text>
+            </Pressable>
+            <Pressable
+              style={styles.timerButton}
+              onPress={() => setTimeLeft(40 * 60)}
+            >
+              <Text style={styles.timerButtonText}>40 mins</Text>
+            </Pressable>
+            <Pressable
+              style={styles.timerButton}
+              onPress={() => setTimeLeft(50 * 60)}
+            >
+              <Text style={styles.timerButtonText}>50 mins</Text>
+            </Pressable>
+            <Pressable
+              style={styles.timerButton}
+              onPress={() => setTimeLeft(60 * 60)}
+            >
+              <Text style={styles.timerButtonText}>60 mins</Text>
+            </Pressable>
+          </View>
+          <View style={styles.viewCustom}>
+            <Text style={styles.viewCustomText}>Custom: </Text>
+            <Pressable>
+              <TextInput
+                style={styles.input}
+                keyboardType="numeric"
+                value={studyDuration.toString()}
+                onChangeText={(value) => {
+                  const duration = parseInt(value, 10) || 0;
+                  setStudyDuration(duration);
+                  setTimeLeft(duration * 60);
+                }}
+                onBlur={() => Keyboard.dismiss()}
+              />
+            </Pressable>
+          </View>
         </View>
-        <Text style={styles.timer}>{formatTime(timeLeft)}</Text>
-        <View style={styles.buttonContainer}>
-          <Button
-            title={isRunning ? "Pause" : "Start"}
-            onPress={handleStartPause}
-          />
-          <View style={styles.spacing} />
-          <Button title="Reset" onPress={handleReset} />
-        </View>
-        <View style={styles.container}>
-        <Pressable onPress={() => setTimeLeft(10 * 60)} styles={{}}> 10 mins</Pressable>
-        <Pressable onPress={() => setTimeLeft(25 * 60)}> 25 mins</Pressable>
-        <Pressable onPress={() => setTimeLeft(60 * 60)}> 60 mins</Pressable>
-      </View>
-        <Button
-          title="Go to Home Screen"
-          onPress={() => navigation.navigate("AboutScreen")}
-        />
-      </View>
+      </TouchableWithoutFeedback>
     </MainLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  viewCustomText: {
+    fontSize: 20,
+    fontWeight: 600,
+    fontFamily: "Montserrat_600SemiBold",
+  },
+  viewCustom: {
+    flexDirection: "row",
+    gap: 10,
+    marginTop: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 15,
+    width: 100,
+    padding: 5,
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: 600,
+    fontFamily: "Montserrat_600SemiBold",
+  },
   container: {
     flex: 1,
     padding: 20,
@@ -79,7 +192,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 20,
+    marginTop: 60,
   },
   header: {
     fontSize: 24,
@@ -95,8 +208,30 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
+    gap: 20,
     justifyContent: "center",
     marginVertical: 20,
+  },
+  startPressable: {
+    backgroundColor: "#888ce4",
+    paddingHorizontal: 40,
+    paddingVertical: 10,
+    borderRadius: 20,
+  },
+  startPressableText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: 600,
+    fontFamily: "Montserrat_600SemiBold",
+  },
+  resetPressable: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+    backgroundColor: "#ef5151",
+    paddingHorizontal: 40,
+    paddingVertical: 10,
+    borderRadius: 20,
   },
   spacing: {
     width: 20,
@@ -105,14 +240,26 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    width: 100,
-    padding: 5,
-    textAlign: "center",
-    marginTop: 10,
+
+  timerButtonsView: {
+    marginTop: 20,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 20,
+    justifyContent: "center",
+  },
+  timerButton: {
+    padding: 10,
+    backgroundColor: "#E2E2E2",
+    borderRadius: 15,
+    shadowColor: "#00000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+  },
+  timerButtonText: {
+    fontSize: 15,
+    fontWeight: "500",
+    fontFamily: "Montserrat_500Medium",
   },
 });
 
