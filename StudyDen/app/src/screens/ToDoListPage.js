@@ -22,10 +22,6 @@ function HomeScreen({ navigation }) {
       <View style={styles.container}>
         <ToDoForm addTask={addTask} />
         <ToDoList tasks={tasks} />
-        <Button
-          title="Go to Home"
-          onPress={() => navigation.navigate("AboutScreen")}
-        />
       </View>
     </MainLayout>
   );

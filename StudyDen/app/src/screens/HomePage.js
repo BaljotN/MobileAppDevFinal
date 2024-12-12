@@ -3,21 +3,11 @@ import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 import MainLayout from "../layouts/MainLayout";
 
 // Keep navigation as a full prop
-const AboutScreen = ({ navigation }) => {
+const HomePage = ({ navigation }) => {
   return (
     <MainLayout>
       <View style={styles.container}>
-        <Text style={[styles.text]}>Welcome To StudyDen</Text>
-        <Text style={[styles.text]}>The All in one study application</Text>
-
-        <Pressable
-          style={[styles.text, styles.goToDoList]}
-          onPress={() => navigation.navigate("HomeScreen")}
-        >
-          <Text style={[styles.text, styles.pressableText]}>
-            Go To To Do List
-          </Text>
-        </Pressable>
+        <Text style={[styles.text]}>Welcome To StudyDen Application</Text>
       </View>
     </MainLayout>
   );
@@ -48,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AboutScreen;
+export default HomePage;
