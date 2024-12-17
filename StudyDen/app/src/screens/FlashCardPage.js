@@ -1,130 +1,15 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Pressable, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, FlatList, TouchableOpacity, TextInput, Pressable, SafeAreaView } from "react-native";
+import React, { useState }, { useState } from "react";
 import MainLayout from "../layouts/MainLayout";
-import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaProvider } from "react-native-safe-area-context";
- 
+
 const FlashCardPage = () => {
-  const [flashcards, setFlashcards] = useState([
-    {
-      "id": "1",
-      "title": "Javascript Flashcards",
-      "description": "A collection of flashcards to help you learn JavaScript concepts, syntax, and best practices."
-    },
-    {
-      "id": "2",
-      "title": "Database and Programming Flashcards",
-      "description": "Flashcards focused on key concepts related to databases, SQL queries, and general programming practices."
-    },
-    {
-      "id": "3",
-      "title": "OOP-3 Flashcards",
-      "description": "Flashcards covering important Object-Oriented Programming concepts like inheritance, polymorphism, and encapsulation."
-    }
-  ]);
-
-
-  const [selectedItemId, setSelectedItemId] = useState(null);
-  const [showDetail, setShowDetail]  = useState(false);
-  const [flashCardTitle, setFlashCardTitle] = useState("");
-  const [flashCardDescription, setFlashCardDescription] = useState("");
-
-  const showingFlashCardDetails =(id)=>{
-    
-    if(setSelectedItemId == id){
-      setSelectedItemId(null)
-    }else{
-      setSelectedItemId(id)
-    }
-  }
-    const [showPopup, setShowPopUp] = useState(false)
-
-    const onTitleChange = (text) =>{
-      setFlashCardTitle(text)
-    }
-
-    const onDescriptionChange =(text) =>{
-      setFlashCardDescription(text)
-    }
-
-    const onAdd = ()=>{
-      let newData = {
-        "id": `${flashcards.length + 1 }`,
-        "title": `${flashCardTitle}`,
-        "description":`${flashCardDescription}`
-      }
-
-      setFlashcards(prevFlashCards =>[...prevFlashCards, newData]);
-      setFlashCardTitle("");
-      setFlashCardDescription("");
-      setShowPopUp(false)
-    }
-
-  const PopUp = () =>(
-    <SafeAreaProvider  style={styles.popUp}>
-      <SafeAreaView>
-      <View>
-      <Text style={{fontSize:20, fontWeight:"600"}}>FlashCard Title:</Text>
-      <TextInput
-          style={styles.titleInput}
-          onChangeText={setFlashCardTitle}
-          placeholder="Enter Flashcard Title"
-          value={flashCardTitle}
-        />
-      <Text style={{fontSize:20, fontWeight:"600"}}>FlashCard Description:</Text>
-      <TextInput
-          multiline={true}
-          style={styles.titleInput}
-          onChangeText={onDescriptionChange}
-          placeholder="Enter Flashcard Description"
-          value={flashCardDescription}
-        />
-        <Pressable onPress={onAdd} style={styles.addFlashCard}>
-          Add
-        </Pressable>
-    </View>
-      </SafeAreaView>
-      </SafeAreaProvider>
-    
-  )
- 
-  const renderItem = ({ item }) =>
-    (
-    <TouchableOpacity onPress={() => showingFlashCardDetails(item.id)} style={styles.flashcardItem}>
-      <View style={styles.flashcardIconContainer}>
-      </View>
-      <Text style={styles.flashcardTitle}>{item.title}</Text>
-      {selectedItemId == item.id  ? (
-      <Text style={styles.flashCardDescription}>{item.description}</Text>
-    ) : null}
-    </TouchableOpacity>
-  );
-
-  const changePopUpVisibility = ()=>{
-    if(showPopup == false){
-      setShowPopUp(true)
-    }else{
-      setShowPopUp(false)
-    }
-  }
- 
   return (
     <MainLayout>
       {
           showPopup ? (<PopUp/>):(null)
         }
       <View style={styles.container}>
-        <FlatList
-          data={flashcards}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.flashcardList}
-        />
-        
-       
-        <TouchableOpacity onPress={()=> changePopUpVisibility()} style={styles.createButton}>
-          <Text style={styles.createButtonText}>Create Flashcards</Text>
-        </TouchableOpacity>
+        <Text>This is the flash card page</Text>
       </View>
     </MainLayout>
   );
@@ -135,36 +20,8 @@ export default FlashCardPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-  },
-  flashcardList: {
-    flexGrow: 1,
-  },
-  flashcardItem: {
-    flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-  },
-  flashcardIconContainer: {
-    marginRight: 15,
-  },
-  flashcardTitle: {
-    fontWeight: "600",
-    fontSize: 20,
-  },
-  flashCardDescription:{
-    fontSize:16,
-  },
-  createButton: {
-    backgroundColor: "#007bff",
-    padding: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 20,
   },
   createButtonText: {
     color: "white",
@@ -209,4 +66,3 @@ const styles = StyleSheet.create({
   }
 
 });
- 
