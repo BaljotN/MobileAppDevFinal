@@ -67,7 +67,7 @@ const FlashCardPage = () => {
       <Text style={{fontSize:20, fontWeight:"600"}}>FlashCard Title:</Text>
       <TextInput
           style={styles.titleInput}
-          onChangeText={setFlashCardTitle}
+          onChangeText={(text) => setFlashCardTitle(text)}
           placeholder="Enter Flashcard Title"
           value={flashCardTitle}
         />
@@ -75,7 +75,7 @@ const FlashCardPage = () => {
       <TextInput
           multiline={true}
           style={styles.titleInput}
-          onChangeText={onDescriptionChange}
+          onChangeText={(text)=>onDescriptionChange(text)}
           placeholder="Enter Flashcard Description"
           value={flashCardDescription}
         />
@@ -120,13 +120,9 @@ const FlashCardPage = () => {
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.flashcardList}
         />
-<<<<<<< HEAD
         
        
         <TouchableOpacity onPress={()=> changePopUpVisibility()} style={styles.createButton}>
-=======
-        <TouchableOpacity style={styles.createButton}>
->>>>>>> 18d7606725ba17edb92f822ac82a45dafb81175a
           <Text style={styles.createButtonText}>Create Flashcards</Text>
         </TouchableOpacity>
       </View>
@@ -145,11 +141,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   flashcardItem: {
-<<<<<<< HEAD
     flexDirection: "column",
-=======
-    flexDirection: "row",
->>>>>>> 18d7606725ba17edb92f822ac82a45dafb81175a
     alignItems: "center",
     padding: 15,
     marginBottom: 10,
@@ -161,15 +153,11 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   flashcardTitle: {
-<<<<<<< HEAD
     fontWeight: "600",
     fontSize: 20,
   },
   flashCardDescription:{
     fontSize:16,
-=======
-    fontSize: 16,
->>>>>>> 18d7606725ba17edb92f822ac82a45dafb81175a
   },
   createButton: {
     backgroundColor: "#007bff",
@@ -182,7 +170,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
-<<<<<<< HEAD
   popUp: {
     position: 'absolute',
     top: '20%',                // Position it vertically in the center
@@ -223,6 +210,3 @@ const styles = StyleSheet.create({
 
 });
  
-=======
-});
->>>>>>> 18d7606725ba17edb92f822ac82a45dafb81175a
